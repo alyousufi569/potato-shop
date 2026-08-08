@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>بطاطا | قائمة الطعام</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#fff8ef;color:#2b2118}
+header{background:#1f1711;color:#fff;padding:42px 20px;text-align:center}
+header h1{font-size:44px;margin:0 0 8px} header p{margin:0;color:#f5d7a1;font-size:18px}
+.container{max-width:1100px;margin:auto;padding:30px 18px}
+.section-title{text-align:center;font-size:30px;margin:10px 0 25px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 8px 25px #00000012;border:1px solid #f0dfca;transition:.2s}
+.card:hover{transform:translateY(-4px)}
+.card img{width:100%;height:190px;object-fit:cover;display:block}
+.card-body{padding:18px}.card h3{margin:0 0 8px;font-size:21px}.card p{margin:0 0 15px;color:#77685c;line-height:1.6}
+.price{font-size:20px;font-weight:bold;color:#c56b17}
+.badge{display:inline-block;background:#f8e0bd;color:#8a4b0d;padding:5px 10px;border-radius:20px;font-size:12px;margin-bottom:10px}
+.cta{margin:35px 0;background:#c56b17;color:#fff;border-radius:20px;padding:28px;text-align:center}
+.cta h2{margin:0 0 8px}.cta p{margin:0 0 18px}
+button{border:0;background:#fff;color:#a5530b;padding:12px 25px;border-radius:12px;font-weight:bold;font-size:16px;cursor:pointer}
+footer{text-align:center;padding:25px;color:#8b7b6d}
+</style>
+</head>
+<body>
+<header>
+  <h1>🥔 بطاطا</h1>
+  <p>قرمشة على كيفك — طازجة، ساخنة، ولذيذة</p>
+</header>
+
+<main class="container">
+  <h2 class="section-title">قائمة الطعام</h2>
+  <div class="grid">
+
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85" alt="بطاطس مقلية">
+      <div class="card-body"><span class="badge">الأكثر طلباً</span>
+      <h3>بطاطس كلاسيك</h3><p>بطاطس ذهبية مقرمشة مع الملح.</p><div class="price">8 ريال</div></div>
+    </article>
+
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=900&q=85" alt="بطاطس بالجبن">
+      <div class="card-body"><span class="badge">كريمي</span>
+      <h3>بطاطس بالجبن</h3><p>بطاطس مقرمشة مع صوص الجبن.</p><div class="price">12 ريال</div></div>
+    </article>
+
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1598679253544-2c97992403ea?auto=format&fit=crop&w=900&q=85" alt="بطاطس مع صوص">
+      <div class="card-body"><span class="badge">صوص خاص</span>
+      <h3>بطاطس بالصوص</h3><p>بطاطس ذهبية مع صوص المحل الخاص.</p><div class="price">12 ريال</div></div>
+    </article>
+
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1606755456206-b25206cde27e?auto=format&fit=crop&w=900&q=85" alt="بطاطس بالدجاج">
+      <div class="card-body"><span class="badge">وجبة مشبعة</span>
+      <h3>بطاطس بالدجاج</h3><p>بطاطس مع قطع دجاج وصوصات مختارة.</p><div class="price">18 ريال</div></div>
+    </article>
+
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=900&q=85" alt="بطاطس محملة">
+      <div class="card-body"><span class="badge">مميز</span>
+      <h3>بطاطس محملة</h3><p>بطاطس مع إضافات وصوصات متعددة.</p><div class="price">20 ريال</div></div>
+    </article>
+
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1622480916113-9000ac49b79d?auto=format&fit=crop&w=900&q=85" alt="كومبو">
+      <div class="card-body"><span class="badge">أفضل قيمة</span>
+      <h3>كومبو</h3><p>بطاطس + مشروب بارد.</p><div class="price">22 ريال</div></div>
+    </article>
+
+  </div>
+
+  <section class="cta">
+    <h2>جاهز للقرمشة؟ 😋</h2>
+    <p>للطلب أو لاستلام الطلب تواصل معنا عبر واتساب</p><p style="font-size:20px;font-weight:bold;margin-top:8px;direction:ltr">055 571 6096</p>
+    <a href="https://wa.me/966555716096" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;background:#fff;color:#a5530b;padding:12px 25px;border-radius:12px;font-weight:bold;font-size:16px">📲 اطلب عبر واتساب</a>
+  </section>
+</main>
+<footer>© 2026 بطاطا — جميع الأسعار قابلة للتحديث</footer>
+</body>
+</html>

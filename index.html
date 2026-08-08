@@ -1,82 +1,1348 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>بطاطا | قائمة الطعام</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>بطاطا | Potato Shop</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#fff8ef;color:#2b2118}
-header{background:#1f1711;color:#fff;padding:42px 20px;text-align:center}
-header h1{font-size:44px;margin:0 0 8px} header p{margin:0;color:#f5d7a1;font-size:18px}
-.container{max-width:1100px;margin:auto;padding:30px 18px}
-.section-title{text-align:center;font-size:30px;margin:10px 0 25px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
-.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 8px 25px #00000012;border:1px solid #f0dfca;transition:.2s}
-.card:hover{transform:translateY(-4px)}
-.card img{width:100%;height:190px;object-fit:cover;display:block}
-.card-body{padding:18px}.card h3{margin:0 0 8px;font-size:21px}.card p{margin:0 0 15px;color:#77685c;line-height:1.6}
-.price{font-size:20px;font-weight:bold;color:#c56b17}
-.badge{display:inline-block;background:#f8e0bd;color:#8a4b0d;padding:5px 10px;border-radius:20px;font-size:12px;margin-bottom:10px}
-.cta{margin:35px 0;background:#c56b17;color:#fff;border-radius:20px;padding:28px;text-align:center}
-.cta h2{margin:0 0 8px}.cta p{margin:0 0 18px}
-button{border:0;background:#fff;color:#a5530b;padding:12px 25px;border-radius:12px;font-weight:bold;font-size:16px;cursor:pointer}
-footer{text-align:center;padding:25px;color:#8b7b6d}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+font-family:Tahoma,Arial,sans-serif;
+background:#fff8ef;
+color:#24170f;
+}
+
+header{
+background:#21170f;
+color:white;
+padding:15px 6%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+font-size:26px;
+font-weight:bold;
+}
+
+.header-buttons{
+display:flex;
+gap:10px;
+}
+
+button{
+border:0;
+cursor:pointer;
+font-family:inherit;
+}
+
+.cart-button,
+.admin-button{
+padding:11px 17px;
+border-radius:10px;
+font-weight:bold;
+}
+
+.cart-button{
+background:#d87516;
+color:white;
+}
+
+.admin-button{
+background:white;
+color:#21170f;
+}
+
+.hero{
+background:linear-gradient(135deg,#21170f,#8a4a14);
+color:white;
+text-align:center;
+padding:65px 20px;
+}
+
+.hero h1{
+font-size:46px;
+margin-bottom:15px;
+}
+
+.hero p{
+font-size:18px;
+color:#f5d8b5;
+}
+
+.container{
+max-width:1150px;
+margin:auto;
+padding:35px 20px;
+}
+
+.categories{
+display:flex;
+gap:10px;
+overflow-x:auto;
+margin-bottom:30px;
+padding-bottom:5px;
+}
+
+.category{
+background:white;
+border:1px solid #ead9c5;
+padding:11px 20px;
+border-radius:30px;
+white-space:nowrap;
+}
+
+.category.active{
+background:#d87516;
+color:white;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:22px;
+}
+
+.product{
+background:white;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 5px 20px #00000012;
+border:1px solid #ead9c5;
+transition:.2s;
+}
+
+.product:hover{
+transform:translateY(-4px);
+}
+
+.product img{
+width:100%;
+height:190px;
+object-fit:cover;
+}
+
+.product-info{
+padding:18px;
+}
+
+.product-name{
+font-size:20px;
+font-weight:bold;
+margin-bottom:8px;
+}
+
+.product-description{
+color:#776b61;
+font-size:14px;
+line-height:1.7;
+min-height:48px;
+}
+
+.product-bottom{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:15px;
+gap:8px;
+}
+
+.price{
+font-size:19px;
+font-weight:bold;
+color:#d87516;
+}
+
+.add-button{
+background:#21170f;
+color:white;
+padding:10px 13px;
+border-radius:10px;
+font-weight:bold;
+}
+
+footer{
+text-align:center;
+padding:35px;
+color:#776b61;
+}
+
+/* CART */
+
+.overlay{
+display:none;
+position:fixed;
+inset:0;
+background:#000000aa;
+z-index:2000;
+}
+
+.overlay.active{
+display:block;
+}
+
+.cart{
+position:absolute;
+right:0;
+top:0;
+width:min(460px,100%);
+height:100%;
+background:white;
+padding:25px;
+overflow:auto;
+}
+
+.close{
+background:#eee;
+padding:9px 14px;
+border-radius:9px;
+margin-bottom:20px;
+}
+
+.cart h2{
+margin-bottom:20px;
+}
+
+.cart-item{
+padding:15px 0;
+border-bottom:1px solid #eee;
+}
+
+.cart-item-name{
+font-weight:bold;
+}
+
+.quantity{
+display:flex;
+align-items:center;
+gap:10px;
+margin-top:10px;
+}
+
+.quantity button{
+width:32px;
+height:32px;
+border-radius:8px;
+background:#eee;
+font-size:18px;
+}
+
+.total{
+font-size:23px;
+font-weight:bold;
+margin:25px 0;
+}
+
+.input{
+margin-bottom:14px;
+}
+
+.input label{
+display:block;
+font-weight:bold;
+margin-bottom:6px;
+}
+
+.input input,
+.input textarea,
+.input select{
+width:100%;
+padding:12px;
+border:1px solid #ddd;
+border-radius:10px;
+font-family:inherit;
+}
+
+.whatsapp{
+width:100%;
+background:#159447;
+color:white;
+padding:14px;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+}
+
+/* ADMIN */
+
+.admin{
+display:none;
+}
+
+.admin.active{
+display:block;
+}
+
+.shop.hidden{
+display:none;
+}
+
+.admin-box{
+background:white;
+padding:22px;
+border-radius:16px;
+border:1px solid #ead9c5;
+margin-bottom:20px;
+}
+
+.admin-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.admin-product{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 0;
+border-bottom:1px solid #eee;
+gap:10px;
+}
+
+.edit{
+background:#eee;
+padding:8px 10px;
+border-radius:8px;
+}
+
+.delete{
+background:#c0392b;
+color:white;
+padding:8px 10px;
+border-radius:8px;
+}
+
+.save{
+background:#d87516;
+color:white;
+padding:13px;
+border-radius:10px;
+width:100%;
+font-weight:bold;
+}
+
+@media(max-width:600px){
+
+.hero h1{
+font-size:34px;
+}
+
+header{
+padding:13px;
+}
+
+.logo{
+font-size:21px;
+}
+
+.header-buttons button{
+padding:8px 10px;
+}
+
+.admin-grid{
+grid-template-columns:1fr;
+}
+
+}
+
 </style>
 </head>
+
 <body>
+
 <header>
-  <h1>🥔 بطاطا</h1>
-  <p>قرمشة على كيفك — طازجة، ساخنة، ولذيذة</p>
+
+<div class="logo">
+🥔 بطاطا
+</div>
+
+<div class="header-buttons">
+
+<button class="admin-button" onclick="openAdmin()">
+⚙️ الإدارة
+</button>
+
+<button class="cart-button" onclick="openCart()">
+🛒 السلة (<span id="cartCount">0</span>)
+</button>
+
+</div>
+
 </header>
 
-<main class="container">
-  <h2 class="section-title">قائمة الطعام</h2>
-  <div class="grid">
 
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85" alt="بطاطس مقلية">
-      <div class="card-body"><span class="badge">الأكثر طلباً</span>
-      <h3>بطاطس كلاسيك</h3><p>بطاطس ذهبية مقرمشة مع الملح.</p><div class="price">8 ريال</div></div>
-    </article>
+<!-- SHOP -->
 
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=900&q=85" alt="بطاطس بالجبن">
-      <div class="card-body"><span class="badge">كريمي</span>
-      <h3>بطاطس بالجبن</h3><p>بطاطس مقرمشة مع صوص الجبن.</p><div class="price">12 ريال</div></div>
-    </article>
+<div id="shop">
 
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1598679253544-2c97992403ea?auto=format&fit=crop&w=900&q=85" alt="بطاطس مع صوص">
-      <div class="card-body"><span class="badge">صوص خاص</span>
-      <h3>بطاطس بالصوص</h3><p>بطاطس ذهبية مع صوص المحل الخاص.</p><div class="price">12 ريال</div></div>
-    </article>
+<section class="hero">
 
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1606755456206-b25206cde27e?auto=format&fit=crop&w=900&q=85" alt="بطاطس بالدجاج">
-      <div class="card-body"><span class="badge">وجبة مشبعة</span>
-      <h3>بطاطس بالدجاج</h3><p>بطاطس مع قطع دجاج وصوصات مختارة.</p><div class="price">18 ريال</div></div>
-    </article>
+<h1>قرمشة على كيفك 😋</h1>
 
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=900&q=85" alt="بطاطس محملة">
-      <div class="card-body"><span class="badge">مميز</span>
-      <h3>بطاطس محملة</h3><p>بطاطس مع إضافات وصوصات متعددة.</p><div class="price">20 ريال</div></div>
-    </article>
+<p>
+بطاطس طازجة • صوصات مميزة • طعم يستاهل التجربة
+</p>
 
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1622480916113-9000ac49b79d?auto=format&fit=crop&w=900&q=85" alt="كومبو">
-      <div class="card-body"><span class="badge">أفضل قيمة</span>
-      <h3>كومبو</h3><p>بطاطس + مشروب بارد.</p><div class="price">22 ريال</div></div>
-    </article>
+</section>
 
-  </div>
 
-  <section class="cta">
-    <h2>جاهز للقرمشة؟ 😋</h2>
-    <p>للطلب أو لاستلام الطلب تواصل معنا عبر واتساب</p><p style="font-size:20px;font-weight:bold;margin-top:8px;direction:ltr">055 571 6096</p>
-    <a href="https://wa.me/966555716096" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;background:#fff;color:#a5530b;padding:12px 25px;border-radius:12px;font-weight:bold;font-size:16px">📲 اطلب عبر واتساب</a>
-  </section>
-</main>
-<footer>© 2026 بطاطا — جميع الأسعار قابلة للتحديث</footer>
+<div class="container">
+
+<div class="categories" id="categories"></div>
+
+<div class="products" id="products"></div>
+
+</div>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<section class="container admin" id="admin">
+
+<h2 style="margin-bottom:20px">
+⚙️ لوحة التحكم
+</h2>
+
+<div class="admin-box">
+
+<h3 style="margin-bottom:15px">
+➕ إضافة منتج جديد
+</h3>
+
+<div class="admin-grid">
+
+<div class="input">
+
+<label>اسم المنتج</label>
+
+<input id="newName" placeholder="مثال: بطاطس بالجبن">
+
+</div>
+
+
+<div class="input">
+
+<label>السعر</label>
+
+<input id="newPrice" type="number" placeholder="15">
+
+</div>
+
+
+<div class="input">
+
+<label>القسم</label>
+
+<input id="newCategory" placeholder="البطاطس">
+
+</div>
+
+
+<div class="input">
+
+<label>رابط الصورة</label>
+
+<input id="newImage" placeholder="https://...">
+
+</div>
+
+</div>
+
+
+<div class="input">
+
+<label>وصف المنتج</label>
+
+<textarea id="newDescription" placeholder="اكتب وصف المنتج"></textarea>
+
+</div>
+
+
+<button class="save" onclick="addProduct()">
+إضافة المنتج
+</button>
+
+</div>
+
+
+<div class="admin-box">
+
+<h3 style="margin-bottom:15px">
+📦 إدارة المنتجات
+</h3>
+
+<div id="adminProducts"></div>
+
+</div>
+
+
+<button class="save" onclick="closeAdmin()">
+⬅️ العودة للموقع
+</button>
+
+</section>
+
+
+<!-- CART -->
+
+<div class="overlay" id="cartOverlay">
+
+<div class="cart">
+
+<button class="close" onclick="closeCart()">
+✕ إغلاق
+</button>
+
+<h2>
+🛒 سلة الطلب
+</h2>
+
+<div id="cartItems"></div>
+
+<div class="total">
+الإجمالي:
+<span id="total">0</span>
+ريال
+</div>
+
+
+<div class="input">
+
+<label>اسم العميل</label>
+
+<input id="customerName" placeholder="اكتب اسمك">
+
+</div>
+
+
+<div class="input">
+
+<label>نوع الطلب</label>
+
+<select id="orderType">
+
+<option>استلام من المحل</option>
+
+<option>توصيل</option>
+
+</select>
+
+</div>
+
+
+<div class="input">
+
+<label>ملاحظات</label>
+
+<textarea id="notes" placeholder="مثال: بدون بصل"></textarea>
+
+</div>
+
+
+<button class="whatsapp" onclick="sendWhatsApp()">
+
+📱 إرسال الطلب عبر واتساب
+
+</button>
+
+</div>
+
+</div>
+
+
+<footer>
+
+<p>
+للطلب والاستفسار عبر واتساب
+</p>
+
+<p style="font-size:20px;font-weight:bold;margin-top:8px">
+
+055 571 6096
+
+</p>
+
+</footer>
+
+
+<script>
+
+/* =========================
+   المنتجات
+========================= */
+
+const defaultProducts = [
+
+{
+id:1,
+name:"بطاطس كلاسيك",
+price:8,
+category:"البطاطس",
+description:"بطاطس ذهبية مقرمشة مع الملح.",
+image:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85"
+},
+
+{
+id:2,
+name:"بطاطس بالجبن",
+price:12,
+category:"البطاطس",
+description:"بطاطس مقرمشة مع صوص الجبن.",
+image:"https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=900&q=85"
+},
+
+{
+id:3,
+name:"بطاطس بالصوص",
+price:12,
+category:"البطاطس",
+description:"بطاطس مع الصوص الخاص بالمحل.",
+image:"https://images.unsplash.com/photo-1598679253544-2c97992403ea?auto=format&fit=crop&w=900&q=85"
+},
+
+{
+id:4,
+name:"بطاطس بالدجاج",
+price:18,
+category:"الوجبات",
+description:"بطاطس مع قطع دجاج وصوصات.",
+image:"https://images.unsplash.com/photo-1606755456206-b25206cde27e?auto=format&fit=crop&w=900&q=85"
+},
+
+{
+id:5,
+name:"بطاطس محملة",
+price:20,
+category:"الوجبات",
+description:"بطاطس مع إضافات وصوصات متعددة.",
+image:"https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=900&q=85"
+},
+
+{
+id:6,
+name:"كومبو",
+price:22,
+category:"العروض",
+description:"بطاطس + مشروب بارد.",
+image:"https://images.unsplash.com/photo-1622480916113-9000ac49b79d?auto=format&fit=crop&w=900&q=85"
+}
+
+];
+
+
+let products =
+JSON.parse(localStorage.getItem("products")) ||
+defaultProducts;
+
+
+let cart =
+JSON.parse(localStorage.getItem("cart")) ||
+[];
+
+
+let currentCategory="الكل";
+
+
+/* =========================
+   حفظ البيانات
+========================= */
+
+function save(){
+
+localStorage.setItem(
+"products",
+JSON.stringify(products)
+);
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+}
+
+
+/* =========================
+   عرض المنتجات
+========================= */
+
+function renderProducts(){
+
+let categories=[
+"الكل",
+...new Set(products.map(p=>p.category))
+];
+
+
+document.getElementById("categories").innerHTML=
+
+categories.map(category=>`
+
+<button
+class="category ${category===currentCategory?"active":""}"
+onclick="selectCategory('${category}')">
+
+${category}
+
+</button>
+
+`).join("");
+
+
+let list=
+
+currentCategory==="الكل"
+
+?products
+
+:products.filter(
+p=>p.category===currentCategory
+);
+
+
+document.getElementById("products").innerHTML=
+
+list.map(product=>`
+
+<div class="product">
+
+<img
+src="${product.image}"
+alt="${product.name}"
+>
+
+<div class="product-info">
+
+<div class="product-name">
+${product.name}
+</div>
+
+<div class="product-description">
+${product.description}
+</div>
+
+<div class="product-bottom">
+
+<div class="price">
+${product.price} ريال
+</div>
+
+<button
+class="add-button"
+onclick="addToCart(${product.id})">
+
++ أضف للسلة
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`).join("");
+
+
+renderCart();
+
+renderAdmin();
+
+}
+
+
+/* =========================
+   الأقسام
+========================= */
+
+function selectCategory(category){
+
+currentCategory=category;
+
+renderProducts();
+
+}
+
+
+/* =========================
+   السلة
+========================= */
+
+function addToCart(id){
+
+let item=cart.find(
+item=>item.id===id
+);
+
+
+if(item){
+
+item.quantity++;
+
+}else{
+
+cart.push({
+id:id,
+quantity:1
+});
+
+}
+
+
+save();
+
+renderCart();
+
+}
+
+
+function changeQuantity(id,change){
+
+let item=cart.find(
+item=>item.id===id
+);
+
+
+if(!item)return;
+
+
+item.quantity+=change;
+
+
+if(item.quantity<=0){
+
+cart=cart.filter(
+item=>item.id!==id
+);
+
+}
+
+
+save();
+
+renderCart();
+
+}
+
+
+function renderCart(){
+
+let count=cart.reduce(
+(total,item)=>total+item.quantity,
+0
+);
+
+
+document.getElementById(
+"cartCount"
+).textContent=count;
+
+
+let total=0;
+
+
+let html="";
+
+
+cart.forEach(item=>{
+
+let product=products.find(
+p=>p.id===item.id
+);
+
+
+if(!product)return;
+
+
+let itemTotal=
+product.price*item.quantity;
+
+
+total+=itemTotal;
+
+
+html+=`
+
+<div class="cart-item">
+
+<div class="cart-item-name">
+${product.name}
+</div>
+
+<div>
+${product.price} ريال × ${item.quantity}
+</div>
+
+<div class="quantity">
+
+<button
+onclick="changeQuantity(${product.id},-1)">
+−
+</button>
+
+<span>
+${item.quantity}
+</span>
+
+<button
+onclick="changeQuantity(${product.id},1)">
++
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById(
+"cartItems"
+).innerHTML=
+html || "<p>السلة فارغة 🛒</p>";
+
+
+document.getElementById(
+"total"
+).textContent=total;
+
+}
+
+
+function openCart(){
+
+document.getElementById(
+"cartOverlay"
+).classList.add("active");
+
+}
+
+
+function closeCart(){
+
+document.getElementById(
+"cartOverlay"
+).classList.remove("active");
+
+}
+
+
+/* =========================
+   واتساب
+========================= */
+
+function sendWhatsApp(){
+
+if(cart.length===0){
+
+alert("السلة فارغة");
+
+return;
+
+}
+
+
+let customer=
+document.getElementById(
+"customerName"
+).value ||
+"عميل";
+
+
+let orderType=
+document.getElementById(
+"orderType"
+).value;
+
+
+let notes=
+document.getElementById(
+"notes"
+).value ||
+"لا يوجد";
+
+
+let message=
+
+"🥔 طلب جديد من موقع بطاطا\n\n"+
+
+"👤 العميل: "+customer+"\n"+
+
+"📦 نوع الطلب: "+orderType+"\n\n"+
+
+"🛒 المنتجات:\n";
+
+
+let total=0;
+
+
+cart.forEach(item=>{
+
+let product=products.find(
+p=>p.id===item.id
+);
+
+
+if(!product)return;
+
+
+let itemTotal=
+product.price*item.quantity;
+
+
+total+=itemTotal;
+
+
+message+=
+
+"• "+product.name+
+" × "+item.quantity+
+" = "+itemTotal+
+" ريال\n";
+
+});
+
+
+message+=
+
+"\n💰 الإجمالي: "+
+total+
+" ريال\n\n"+
+
+"📝 الملاحظات: "+
+notes;
+
+
+let phone="966555716096";
+
+
+let url=
+"https://wa.me/"+
+phone+
+"?text="+
+encodeURIComponent(message);
+
+
+window.open(url,"_blank");
+
+}
+
+
+/* =========================
+   الإدارة
+========================= */
+
+function openAdmin(){
+
+let password=
+prompt("أدخل رمز الإدارة");
+
+
+if(password!=="1234"){
+
+alert("رمز الإدارة غير صحيح");
+
+return;
+
+}
+
+
+document.getElementById(
+"shop"
+).classList.add("hidden");
+
+
+document.getElementById(
+"admin"
+).classList.add("active");
+
+
+renderAdmin();
+
+}
+
+
+function closeAdmin(){
+
+document.getElementById(
+"admin"
+).classList.remove("active");
+
+
+document.getElementById(
+"shop"
+).classList.remove("hidden");
+
+}
+
+
+function addProduct(){
+
+let name=
+document.getElementById(
+"newName"
+).value.trim();
+
+
+let price=
+Number(
+document.getElementById(
+"newPrice"
+).value
+);
+
+
+let category=
+document.getElementById(
+"newCategory"
+).value.trim();
+
+
+let image=
+document.getElementById(
+"newImage"
+).value.trim();
+
+
+let description=
+document.getElementById(
+"newDescription"
+).value.trim();
+
+
+if(!name || !price){
+
+alert(
+"يرجى إدخال اسم المنتج والسعر"
+);
+
+return;
+
+}
+
+
+if(!category){
+
+category="البطاطس";
+
+}
+
+
+if(!image){
+
+image=
+"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85";
+
+}
+
+
+products.push({
+
+id:Date.now(),
+
+name:name,
+
+price:price,
+
+category:category,
+
+description:
+description || "منتج لذيذ من محل بطاطا.",
+
+image:image
+
+});
+
+
+save();
+
+
+document.getElementById(
+"newName"
+).value="";
+
+
+document.getElementById(
+"newPrice"
+).value="";
+
+
+document.getElementById(
+"newCategory"
+).value="";
+
+
+document.getElementById(
+"newImage"
+).value="";
+
+
+document.getElementById(
+"newDescription"
+).value="";
+
+
+renderProducts();
+
+
+alert("تمت إضافة المنتج بنجاح ✅");
+
+}
+
+
+/* =========================
+   إدارة المنتجات
+========================= */
+
+function renderAdmin(){
+
+let element=
+document.getElementById(
+"adminProducts"
+);
+
+
+if(!element)return;
+
+
+element.innerHTML=
+
+products.map(product=>`
+
+<div class="admin-product">
+
+<div>
+
+<strong>
+${product.name}
+</strong>
+
+<br>
+
+${product.price} ريال
+
+<br>
+
+<small>
+${product.category}
+</small>
+
+</div>
+
+
+<div>
+
+<button
+class="edit"
+onclick="editPrice(${product.id})">
+
+✏️ السعر
+
+</button>
+
+
+<button
+class="delete"
+onclick="deleteProduct(${product.id})">
+
+🗑️ حذف
+
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+function editPrice(id){
+
+let product=
+products.find(
+p=>p.id===id
+);
+
+
+let newPrice=
+prompt(
+"أدخل السعر الجديد",
+product.price
+);
+
+
+if(
+newPrice!==null &&
+Number(newPrice)>0
+){
+
+product.price=
+Number(newPrice);
+
+
+save();
+
+renderProducts();
+
+}
+
+}
+
+
+function deleteProduct(id){
+
+if(
+!confirm(
+"هل تريد حذف هذا المنتج؟"
+)
+)return;
+
+
+products=
+products.filter(
+p=>p.id!==id
+);
+
+
+cart=
+cart.filter(
+item=>item.id!==id
+);
+
+
+save();
+
+renderProducts();
+
+}
+
+
+/* =========================
+   تشغيل الموقع
+========================= */
+
+renderProducts();
+
+</script>
+
 </body>
 </html>
